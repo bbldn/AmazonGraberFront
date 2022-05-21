@@ -6,14 +6,14 @@
 </template>
 
 <script setup lang="ts">
-interface Props {
-  onShowForm: () => void,
-}
-
-import {ref, onMounted, computed, defineProps} from 'vue';
+import {ref, onMounted, computed, defineProps, onUnmounted} from 'vue';
 import type {Task} from "app/domain/entity/Task";
 import {container} from "app/inversify.config";
 import {ParserRepository} from "app/application/repository/ParserRepository";
+
+interface Props {
+  onShowLoadingFormComponent: () => void,
+}
 
 const props = defineProps<Props>();
 
@@ -24,6 +24,7 @@ const parserRepository = container.get(ParserRepository);
 /* State | Start */
 const loadingRef = ref<boolean>(true);
 const taskRef = ref<Task | undefined>(undefined);
+const timeoutId = ref<any>(undefined);
 /* State | End */
 
 /* Function | Start */
@@ -52,20 +53,20 @@ const getStatus = async () => {
   const task = await parserRepository.getStatus();
 
   loadingRef.value = false;
-  if (!task) {
-    return;
-  }
-
   taskRef.value = task;
-  console.log(props);
 
   if (percent.value < 100) {
-    setTimeout(getStatus, 2000);
+    timeoutId.value = setTimeout(getStatus, 2000);
   } else {
-    props.onShowForm();
+    props.onShowLoadingFormComponent();
   }
 };
 /* Method | End */
 
 onMounted(getStatus);
+onUnmounted(() => {
+  if (timeoutId.value) {
+    clearTimeout(timeoutId.value);
+  }
+})
 </script>

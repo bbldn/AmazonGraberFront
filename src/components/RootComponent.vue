@@ -1,31 +1,27 @@
 <template>
   <div class="root-wrapper">
     <div class="root-content-wrapper">
-      <a-tabs>
+      <a-tabs :destroyInactiveTabPane="true">
         <a-tab-pane key="1" tab="Добавить записи">
-          <LoadingComponent/>
+          <loading-component/>
         </a-tab-pane>
         <a-tab-pane key="2" tab="Просмотреть записи">
-          Привет
+          <product-table-component/>
         </a-tab-pane>
       </a-tabs>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import {defineComponent} from 'vue';
+<script setup lang="ts">
 import LoadingComponent from "app/components/RootComponent/LoadingComponent.vue";
-
-export default defineComponent({
-  components: {LoadingComponent},
-});
+import ProductTableComponent from "app/components/RootComponent/ProductTableComponent.vue";
 </script>
 
 <style scoped>
 .root-wrapper {
   display: flex;
-  height: 100vh;
+  height: 99vh;
   align-items: center;
   justify-content: center;
 }

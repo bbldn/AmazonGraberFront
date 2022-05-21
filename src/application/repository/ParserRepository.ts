@@ -9,11 +9,10 @@ import type {Task} from "app/domain/entity/Task";
 class ParserRepository {
     public async getStatus(): Promise<Task | undefined> {
         const response = await axios.get('/parser/status');
-        if (200 === response.status) {
-            return response.data;
-        }
 
-        return undefined;
+        const {data} = response;
+
+        return '' !== data ? data : undefined;
     }
 
     public async startLoading(input: StartParse): Promise<string> {

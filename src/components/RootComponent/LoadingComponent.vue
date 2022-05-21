@@ -1,6 +1,9 @@
 <template>
-  <StatusComponent v-if="'status' === selectedComponentRef" :on-show-form="onShowForm"/>
-  <LoadingFormComponent v-else/>
+  <StatusComponent
+      v-if="'status' === selectedComponentRef"
+      :on-show-loading-form-component="onShowLoadingFormComponent"
+  />
+  <LoadingFormComponent v-else :on-show-status-component="onShowStatusComponent"/>
 </template>
 
 <script setup lang="ts">
@@ -10,7 +13,8 @@ import StatusComponent from "app/components/RootComponent/LoadingComponent/Statu
 
 const selectedComponentRef = ref<string>('status');
 
-const onShowForm = () => selectedComponentRef.value = 'loading';
+const onShowStatusComponent = () => selectedComponentRef.value = 'status';
+const onShowLoadingFormComponent = () => selectedComponentRef.value = 'loading';
 
 </script>
 
