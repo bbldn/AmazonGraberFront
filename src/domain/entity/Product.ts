@@ -8,6 +8,7 @@ interface Product {
     rating?: string;
     image_list?: string;
     description?: string;
+    search_query?: string;
 }
 
 enum ProductFields {
@@ -20,6 +21,7 @@ enum ProductFields {
     rating = 'rating',
     image_list = 'image_list',
     description = 'description',
+    search_query = 'search_query',
 }
 
 export {ProductFields};

@@ -11,6 +11,7 @@
 </template>
 
 <script setup lang="ts">
+
 import {onMounted, ref} from "vue";
 import type {Product} from "app/domain/entity/Product";
 import {ProductFields} from "app/domain/entity/Product";
@@ -57,6 +58,11 @@ const columns = [
     title: 'Rating',
     key: ProductFields.rating,
     dataIndex: ProductFields.rating,
+  },
+  {
+    title: 'SearchQuery',
+    key: ProductFields.search_query,
+    dataIndex: ProductFields.search_query,
   },
   {
     title: 'ImageList',
